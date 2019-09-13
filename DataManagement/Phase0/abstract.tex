@@ -40,11 +40,21 @@ The other core entity set of the data is the ``name", which refers to the metada
 The challenges offered by this dataset include modeling of the data by keeping in mind both the normalization constraints as well as the current database structure, handling multi-value attributes that are present in some of the tables, and designing a script and model capable of handling missing values for some attributes.
 \section{Project Outline}
 \subsection{Data Modeling}
-In this phase, we understand and explore the data thoroughly to identify entities, their relations with each other, and all relevant constraints. The outcome of this phase will be an ER diagram that summarizes the observations by week 4. 
+In this phase, we understand and explore the data thoroughly to identify entities, their relations with each other, and all relevant constraints. The outcome of this phase will be an ER diagram that summarizes the observations by week 4. This phase would be led by Aishwarya.
 \subsection{Schema Identification}
-This phase involves the identification and mapping of the relational schema from the entity- relationship Model, as well as choose appropriate constraints and keys required to maintain data integrity and avoid redundancies. This phase ends by week 5 with the predicted deliverable as the populated relational database system.
+This phase involves the identification and mapping of the relational schema from the entity- relationship Model, as well as choose appropriate constraints and keys required to maintain data integrity and avoid redundancies. Prateek will be leading this phase. It ends by week 5 with the predicted deliverable as the populated relational database system.
 \subsection{Create Queries}
-The next phase in the project will involve identifying possible use-case scenarios of the dataset and building equivalent queries to handle these requests. These queries will include searching by title, actor, genre, or other attributes. It will also allow sorting by year, title, or any other appropriate parameter. This phase will also require testing and refining the queries that are built. The deliverable for this phase is the SQL script for database access and is expected to be completed by week 7.
+The next phase in the project will involve identifying possible use-case scenarios of the dataset and building equivalent queries to handle these requests. These queries will include searching by title, actor, genre, or other attributes. It will also allow sorting by year, title, or any other appropriate parameter. This phase will also require testing and refining the queries that are built. 
+
+Some possible query scenarios that would aid the user to better access the data are:
+\begin{itemize}
+    \item Case-insensitive fuzzy search across tables and columns. For example, finding title across the original and alternate titles, and by principals, genres, or crew.
+    \item Windowed queries, for instance, ranking the titles by rating across release dates.
+    \item Pivoted queries to find a title across release media.
+    \item Aggregated summaries of actors and their contributions to titles.
+\end{itemize}
+
+Martin will be leading this phase. The deliverable for this phase is the SQL script for database access and is expected to be completed by week 7.
 \subsection{User Interface Development}
-In this phase, we develop an user-friendly interface for potential customers to interact with the database without having to create their own queries. The focus of this phase will be on ease of access, understandable user interface with popular web technologies such as HTML and javascript. The user interface is then linked to the database and tested rigorously. This phase is expected to be completed by week 9.
+In this phase, we develop an user-friendly interface for potential customers to interact with the database without having to create their own queries. The focus of this phase will be on ease of access, understandable user interface with popular web technologies such as HTML and javascript. The user interface is then linked to the database and tested rigorously. This phase would be led by Apurav and is expected to be completed by week 9.
 \end{document}
