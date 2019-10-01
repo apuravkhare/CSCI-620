@@ -1,4 +1,4 @@
-create database imdb;
+-- create database imdb;
 use imdb;
 
 -- title (tconst, titleType, primaryTitle, originalTitle, isAdult, startYear, endYear, averageRating, numVotes)
