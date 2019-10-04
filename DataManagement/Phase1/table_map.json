@@ -1,0 +1,12 @@
+{
+    "filePath": "C:/Users/apura/Desktop/IMDb Data/",
+    "files": {
+        "title.akas.tsv": "title_akas",
+        "title.basics.tsv": "title_basics",
+        "title.crew.tsv": "title_crew",
+        "title.episode.tsv": "title_episode",
+        "title.principals.tsv": "title_principals",
+        "title.ratings.tsv": "title_ratings",
+        "name.basics.tsv": "name_basics"
+    }
+}

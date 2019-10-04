@@ -1,0 +1,22 @@
+{
+    "filePath": "C:/Users/apura/Desktop/IMDb Data/",
+    "files":{
+        "title.principals.tsv": [
+            "characters"
+        ],
+        "name.basics.tsv": [
+            "primaryProfession",
+            "knownForTitles"
+        ],
+        "title.crew.tsv": [
+            "directors",
+            "writers"
+        ],
+        "title.akas.tsv": [
+            "types"
+        ],
+        "title.basics.tsv": [
+            "genres"
+        ]
+    }
+}
