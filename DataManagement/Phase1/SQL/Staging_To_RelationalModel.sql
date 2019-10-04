@@ -8,10 +8,10 @@ b.tconst
 ,b.primaryTitle
 ,b.originalTitle
 ,case when b.isAdult = '1' then TRUE else FALSE end
-,case when b.startYear = 'null' then NULL else cast(b.startYear as unsigned) end
-,cast(b.runtimeMinutes as unsigned)
-,cast(r.averageRating as float)
-,cast(r.numVotes as unsigned)
+,case when b.startYear = 'null' then NULL else convert(b.startYear, unsigned) end
+,convert(b.runtimeMinutes, unsigned)
+,convert(r.averageRating, float)
+,convert(r.numVotes, unsigned)
 from imdb_staging.title_basics b
 left outer join imdb_staging.title_ratings r on b.tconst = r.tconst;
 
@@ -22,7 +22,7 @@ where FIND_IN_SET(genres.genre, imdb_staging.title_basics.genres);
 
 insert into imdb.tvSeries (tconst, endYear)
 select tconst
-, case when e.endYear = 'null' then NULL else cast(endYear as unsigned) end
+, case when e.endYear = 'null' then NULL else convert(endYear, unsigned) end
 from imdb_staging.title_basics
 where titleType in ('tvSeries', 'tvMiniSeries');
 
@@ -33,8 +33,8 @@ where titleType not in ('tvSeries', 'tvMiniSeries', 'tvEpisode');
 
 insert into imdb.tvEpisode (tconst, parentTconst, seasonNumber, episodeNumber)
 select e.tconst, b.tconst
-, case when e.seasonNumber = 'null' then NULL else cast(e.seasonNumber as unsigned) end
-, case when e.episodeNumber = 'null' then NULL else cast(e.episodeNumber as unsigned) end
+, case when e.seasonNumber = 'null' then NULL else convert(e.seasonNumber, unsigned) end
+, case when e.episodeNumber = 'null' then NULL else convert(e.episodeNumber, unsigned) end
 from imdb_staging.title_basics b
 inner join imdb_staging.title_episode e on b.tconst = e.parentTconst
 where b.titleType = 'tvEpisode';
@@ -51,8 +51,8 @@ where find_in_set(imdb_staging.alternateTitleTypes.titleType, imdb_staging.title
 
 insert into imdb.name (nconst, primaryName, birthYear, deathYear)
 select nconst, primaryName
-, case when birthYear = 'null' then NULL else cast(birthYear as unsigned) end
-, case when deathYear = 'null' then NULL else cast(deathYear as unsigned) end
+, case when birthYear = 'null' then NULL else convert(birthYear, unsigned) end
+, case when deathYear = 'null' then NULL else convert(deathYear, unsigned) end
 from imdb_staging.name_basics;
 
 insert into imdb.namePrimaryProfession (nconst, primaryProfession)
