@@ -75,8 +75,26 @@
 	Foreign key 3 - category references principal(category) \newline
 	Foreign key 4 - job references principal(job) \newline
 	\subsection{Populating the database}
-	Python is used to clean up the dataset and prepare it for transfer to a SQL database. SQL scripts are used for creation and insertion of the preprocessed data into the database. These scripts handle the mapping of the original dataset structure and the relational schema.
-	Missing values for attributes such as endYear and deathYear are stored as NULL.
+        The database population is done in three steps, to allow for cleaning the data, applying the constraints, and inserting the data.
+        \begin{enumerate}
+                \item[Step 1:] Create a staging database. The structure of this database is same as the source files. It is used to ease the process of inserting values into the normalized tables. As the tables in the relational schema are in BCNF form, they are decomposed, and can contain values from multiple files to maintain proper functional dependency. Using a staging database allows us to avoid loading multiple large files in the memory to populate a single table. It makes the process of populating the database simpler and cleaner. These tables are created using a Python script that inserts all values from a table into a corresponding table.
+
+                \item[Step 2:] The unique values for the multivalued attributes stored as comma-separated values in the database are identified. For a storage to be relational, each cell should contain atomic information. But the source files from the IMDb dataset have certain cells that contain array of values. This is not desirable. So, in this step, we extract these multivalued attribute values, and store them temporarily in the staging database. This is done using a Python script that scans the columns having multi-valued attributes, and extracts only the unique values from those.
+
+                \item[Step 3:] The values are transferred from the staging database to the relational model. For populating each table in the relational schema, the necessary tables from the staging database are joined and the values are converted to a proper type. The data stored in the relational model ensures complete referential integrity and data consistency. This step is done using SQL scripts that read the necessary tables from the staging schema, and populate the tables in the IMDb schema.
+        \end{enumerate}
+\bigskip
 	\section{Project outline}
-	The next step of the project is to identify possible scenarios and create queries for the same. The query scenarios we forsee implementing include the range of movies during a specified time period, popular movies by a specified actor, top list of movies of all time, specific movie or actor information based on search. Simultaneously, a front end interface will be developed for user-friendly access to the results returned by the queries. The deliverable by the end of this data management project will be the interface that allows users to access and view the data present in the IMDb dataset in a fast and comprehensible way. 
+	The next step of the project is to identify possible scenarios and create queries for the same. Following are some of the query scenarios that we forsee implementing:
+        \begin{itemize}
+            \item The range of titles released during a specified time period.
+            \item Popular titles for a specified actor.
+            \item Top list of movies of all time.
+            \item Specific movie or actor information based on search.
+           \item Aggregated summaries of actors and their contributions to titles.
+        \end{itemize}
+
+Simultaneously, a front end interface will be developed for user-friendly access to the results returned by the queries. The user-interface will be web-based, allowing the users to access the data across devices and platforms. The queries to fetch the data for display will be implemented in the back-end REST API that connects to the relational schema created in Phase 1.
+
+The deliverable by the end of this data management project will be the interface that allows users to access and view the data present in the IMDb dataset in a fast and comprehensible way. 
 \end{document}
