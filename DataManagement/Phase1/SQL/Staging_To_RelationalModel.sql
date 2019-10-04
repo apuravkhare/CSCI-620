@@ -41,7 +41,7 @@ where b.titleType = 'tvEpisode';
 
 insert into alternateTitle (tconst, language, title, region, isOriginal)
 select tconst, language, title, region
-, case when isOriginalTitle = '1' then TRUE else FALSE end]
+, case when isOriginalTitle = '1' then TRUE else FALSE end
 from imdb_staging.title_akas;
 
 insert into imdb.alternateTitleTypes (tconst, language, title, region, isOriginal, type)
