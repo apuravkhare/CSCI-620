@@ -22,7 +22,7 @@ where FIND_IN_SET(genres.genre, imdb_staging.title_basics.genres);
 
 insert into imdb.tvSeries (tconst, endYear)
 select tconst
-, case when e.endYear = 'null' then NULL else convert(endYear, unsigned) end
+, case when endYear = 'null' then NULL else convert(endYear, unsigned) end
 from imdb_staging.title_basics
 where titleType in ('tvSeries', 'tvMiniSeries');
 
@@ -40,7 +40,7 @@ inner join imdb_staging.title_episode e on b.tconst = e.parentTconst
 where b.titleType = 'tvEpisode';
 
 insert into alternateTitle (tconst, language, title, region, isOriginal)
-select tconst, language, title, region
+select titleId, language, title, region
 , case when isOriginalTitle = '1' then TRUE else FALSE end
 from imdb_staging.title_akas;
 
