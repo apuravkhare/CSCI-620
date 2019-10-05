@@ -43,45 +43,46 @@
 	The relationship between title and a person is in three different forms. One, a person may be a part of the crew for a movie or episode. This job includes producers and writers and are indicated through the role attribute on this relationship. A person may be primarily known for one or more titles. This relationship is captured by known for. Finally, the details regarding the principal team involved in a movie or show (including actors) are represented by a relationship principal that holds the person's role as well as characters they may have played. 
 	\subsection{Schema Identification}
 	This phase involves the identification and mapping of the relational schema from the entity- relationship Model, as well as choose appropriate constraints and keys required to maintain data integrity and avoid redundancies. The relational schema selected is as follows,\newline
-	title (\underline{tconst}, titleType, primaryTitle, originalTitle, isAdult, startYear, averageRating, numVotes)\newline
-	title\_genre (\underline{tconst}, \underline{genre}) \newline
-	Foreign Key - tconst from title \newline
-	tvSeries (\underline{tconst}, endYear)\newline
-	Foreign Key - tconst from title\newline
-	movie (\underline{tconst}, movieType)\newline
-	Foreign Key - tconst from title\newline
-	tvEpisode (\underline{tconst}, \underline{parentTconst}, seasonNumber, episodeNumber)\newline
-	Foreign key 1 - tconst references title\newline
-	Foreign key 2 - parentTconst references tvSeries(tconst)\newline
-	alternate\_title (\underline{tconst}, \underline{language}, \underline{title}, \underline{region}, isOriginal) \newline
-	Foreign key - tconst references title(tconst)\newline
-	alternate\_title\_types (\underline{tconst},\underline{language}, \underline{title}, \underline{region}, \underline{type}) \newline
-	Foreign key - tconst references title(tconst)\newline
-	name (\underline{nconst}, primaryName, birthYear, deathYear) \newline
-	name\_primary\_profession (\underline{nconst}, \underline{primary\_profession}) \newline
-	Foreign key - nconst references name(nconst)\newline
-	crew (\underline{nconst}, underline{tconst}, underline{role}) \newline
-	Foreign key 1 - nconst references name(nconst) \newline
-	Foreign key 2 - tconst references title(tconst) \newline
-	popular\_titles (\underline{tconst}, \underline{nconst}) \newline
-	Foreign key 1 - nconst references name(nconst) \newline
-	Foreign key 2 - tconst references title(tconst) \newline
-	principal (\underline{tconst}, \underline{nconst}, \underline{category}, \underline{job}) \newline
-	Foreign key 1 - nconst references name(nconst) \newline
-	Foreign key 2 - tconst references title(tconst) \newline
-	principal\_characters (\underline{tconst}, \underline{nconst}, \underline{category}, \underline{job}, \underline{characters}) \newline
-	Foreign key 1 - nconst references name(nconst) \newline
-	Foreign key 2 - tconst references title(tconst) \newline
-	Foreign key 3 - category references principal(category) \newline
-	Foreign key 4 - job references principal(job) \newline
+        \begin{itemize}
+	\item title (\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear}, isAdult, averageRating, numVotes)
+	\item titleGenres (\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear}, \underline{genre}) \newline
+	Foreign Key - title(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear})
+	\item tvSeries (\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear}, endYear)\newline
+	Foreign Key - title(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear})
+	\item movie (\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear}, \underline{movieType})\newline
+	Foreign Key - title(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear})
+	\item tvEpisode (\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear},\\ \underline{seriesPrimaryTitle}, \underline{seriesOriginalTitle}, \underline{seriesStartYear}, \underline{seasonNumber}, \underline{episodeNumber})\newline
+	Foreign key 1 - title(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear})
+	Foreign key 2 - tvSeries(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear})
+	\item alternateTitle (\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear},\\ \underline{language}, \underline{title}, \underline{region}) \newline
+	Foreign key - title(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear})
+	\item alternateTitleTypes (\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear},\\ \underline{language}, \underline{title}, \underline{region}, \underline{type}) \newline
+	Foreign key - title(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear})
+	\item name (\underline{primaryName}, \underline{birthYear}, deathYear)
+	\item namePrimaryProfession (\underline{primaryName}, \underline{birthYear},\\ \underline{primaryProfession}) \newline
+	Foreign key - name(\underline{primaryName}, \underline{birthYear})
+	\item writers (\underline{primaryName}, \underline{birthYear}, \underline{primaryTitle}, \underline{originalTitle}, \underline{startYear}) \newline
+	Foreign key 1 - name(\underline{primaryName}, \underline{birthYear}) \newline
+	Foreign key 2 - title(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear})
+	\item directors (\underline{primaryName}, \underline{birthYear}, \underline{primaryTitle},\\ \underline{originalTitle}, \underline{startYear}) \newline
+	Foreign key 1 - name(\underline{primaryName}, \underline{birthYear}) \newline
+	Foreign key 2 - title(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear})
+	\item popularTitles (\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear}, \underline{primaryName}, \underline{birthYear}) \newline
+	Foreign key 1 - name(\underline{primaryName}, \underline{birthYear}) \newline
+	Foreign key 2 - title(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear})
+	\item principalCast (\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear}, \underline{primaryName}, \underline{birthYear}, \underline{category}, \underline{job}) \newline
+	Foreign key 1 - name(\underline{primaryName}, \underline{birthYear}) \newline
+	Foreign key 2 - title(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear})
+	\item principalCastCharacters (\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear}, \underline{primaryName}, \underline{birthYear}, \underline{category}, \underline{job},\\ \underline{character}) \newline
+	Foreign key - principalCast(\underline{primaryTitle}, \underline{originalTitle}, \underline{startYear}, \underline{primaryName}, \underline{birthYear}, \underline{category}, \underline{job})
+        \end{itemize}
 	\subsection{Populating the database}
-        The database population is done in three steps, to allow for cleaning the data, applying the constraints, and inserting the data.
+        The database population is done in two steps, to allow for cleaning the data, applying the constraints, and inserting the data.
         \begin{enumerate}
-                \item[Step 1:] Create a staging database. The structure of this database is same as the source files. It is used to ease the process of inserting values into the normalized tables. As the tables in the relational schema are in BCNF form, they are decomposed, and can contain values from multiple files to maintain proper functional dependency. Using a staging database allows us to avoid loading multiple large files in the memory to populate a single table. It makes the process of populating the database simpler and cleaner. These tables are created using a Python script that inserts all values from a table into a corresponding table.
+                \item[Step 1:] Create a staging database. The structure of this database is same as the source files. It is used to ease the process of inserting values into the normalized tables. It is created using the file import feature provided by SQL Server. The data in these tables is not sanitized, and doesn't adhere to any constraints.\\
+As the tables in the relational schema are in BCNF form, they are decomposed, and can contain values from multiple files to maintain proper functional dependency. Using a staging database allows us to avoid loading multiple large files in the memory to populate a single table. It makes the process of populating the database simpler and cleaner. These tables are created using a Python script that inserts all values from a table into a corresponding table.
 
-                \item[Step 2:] The unique values for the multivalued attributes stored as comma-separated values in the database are identified. For a storage to be relational, each cell should contain atomic information. But the source files from the IMDb dataset have certain cells that contain array of values. This is not desirable. So, in this step, we extract these multivalued attribute values, and store them temporarily in the staging database. This is done using a Python script that scans the columns having multi-valued attributes, and extracts only the unique values from those.
-
-                \item[Step 3:] The values are transferred from the staging database to the relational model. For populating each table in the relational schema, the necessary tables from the staging database are joined and the values are converted to a proper type. The data stored in the relational model ensures complete referential integrity and data consistency. This step is done using SQL scripts that read the necessary tables from the staging schema, and populate the tables in the IMDb schema.
+                \item[Step 2:] The values are transferred from the staging database to the relational model. For populating each table in the relational schema, the necessary tables from the staging database are joined and the values are converted to a proper type. The data stored in the relational model ensures complete referential integrity and data consistency. This step is done using SQL scripts that read the necessary tables from the staging schema, and populate the tables in the IMDb schema.
         \end{enumerate}
 \bigskip
 	\section{Project outline}
