@@ -28,6 +28,17 @@ def hello_world():
     return 'Hello World!'
 
 
+'''
+Execute this from the browser console to test the method. The result can be seen in the Network tab.
+await window.fetch('http://127.0.0.1:5000/get_data',{
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(x = {
+    scenario_id: -1,
+    filters: { startYear: [ '2017' ] }
+  })
+});
+'''
 @app.route('/get_data', methods=['POST'])
 def get_data():
     query = ""
