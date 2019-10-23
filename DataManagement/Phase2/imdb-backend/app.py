@@ -76,13 +76,13 @@ def query_gen(query_request: QueryRequest):
             else:
                 phrase = query_request.filters.get(key)
                 phrase = phrase.replace("'", "''")
-        query_string = "SELECT name.primaryName FROM name, movie, principalCast "+
-        " WHERE name.primaryName = principalCast.primaryName "+
-        " AND name.birthYear = principalCast.birthYear AND principalCast.category = 'actor' "+
-        " AND movie.startYear NOT IN (SELECT startYear FROM movie WHERE startYear <> {1}) "+
-        " AND name.deathYear IS NULL AND principalCast.primaryTitle = movie.primaryTitle "+
-        " AND principalCast.originalTitle = movie.originalTitle AND principalCast.startYear = movie.startYear "+
-        " AND name.primaryName LIKE '{2}%'".format(year, phrase)
+        query_string = 'SELECT name.primaryName FROM name, movie, principalCast '\
+        ' WHERE name.primaryName = principalCast.primaryName '\
+        ' AND name.birthYear = principalCast.birthYear AND principalCast.category = \'actor\' '\
+        ' AND movie.startYear NOT IN (SELECT startYear FROM movie WHERE startYear <> {1}) '.format(y) \
+        ' AND name.deathYear IS NULL AND principalCast.primaryTitle = movie.primaryTitle '\
+        ' AND principalCast.originalTitle = movie.originalTitle AND principalCast.startYear = movie.startYear '\
+        ' AND name.primaryName LIKE \'{1}%\''.format(phrase)
     elif query_request.scenario_id == 2:
         pass
     elif query_request.scenario_id == 3:
@@ -90,41 +90,62 @@ def query_gen(query_request: QueryRequest):
             if key=="originalTitle":
                 phrase = query_request.filters.get(key)
                 phrase = phrase.replace("'", "''")
-        query_string = "SELECT avg(runtimeInMinutes) FROM movie, title,writers, name "+
-        " WHERE movie.primaryTitle = title.primaryTitle "+
-        " AND movie.originalTitle = title.originalTitle AND movie.startYear = title.startYear "+
-        " AND writers.primaryTitle = title.primaryTitle AND writers.originalTitle = title.originalTitle "+
-        " AND writers.startYear = title.startYear AND writers.primaryName = name.primaryName "+
-        " AND writers.birthYear = name.birthYear AND name.deathYear IS NULL " +
-        " AND movie.originalTitle LIKE '%{1}%'".format(phrase)
+        query_string = 'SELECT avg(runtimeInMinutes) FROM movie, title,writers, name '\
+        ' WHERE movie.primaryTitle = title.primaryTitle '\
+        ' AND movie.originalTitle = title.originalTitle AND movie.startYear = title.startYear '\
+        ' AND writers.primaryTitle = title.primaryTitle AND writers.originalTitle = title.originalTitle '\
+        ' AND writers.startYear = title.startYear AND writers.primaryName = name.primaryName '\
+        ' AND writers.birthYear = name.birthYear AND name.deathYear IS NULL '\
+        ' AND movie.originalTitle LIKE \'%{1}%\''.format(phrase)
     elif query_request.scenario_id==4:
-        query_string ="SELECT name.primaryName from name, movie, title, principalCast " +
-        " WHERE principalCast.primaryName = name.primaryName " +
-        " AND principalCast.birthYear = name.birthYear " +
-        " AND principalCast.primaryTitle = title.primaryTitle " +
-        " AND principalCast.originalTitle = title.originalTitle " +
-        " AND principalCast.startYear = title.startYear " +
-        " AND movie.primaryTitle = title.primaryTitle "+
-        " AND movie.originalTitle = title.originalTitle "+
-        " AND movie.startYear = title.startYear "+
-        " AND title.runtimeInMinutes > 120 "+
-        " AND name.deathYear IS NULL "+
-        " GROUP BY name.primaryName "+
-        " HAVING count(movie.originalTitle) >= "+
-        " (SELECT COUNT(movie.originalTitle) AS totalcounts FROM name n, movie m, title t, principalCast p"+
-        " WHERE p.primaryName = n.primaryName "+
-        " AND p.birthYear = n.birthYear "+
-        " AND p.primaryTitle = t.primaryTitle " +
-        " AND p.originalTitle = t.originalTitle "+
-        " AND p.startYear = t.startYear "+
-        " AND m.primaryTitle = t.primaryTitle "+
-        " AND m.originalTitle = t.originalTitle "+
-        " AND m.startYear = t.startYear "+
-        " AND t.runtimeInMinutes > 120 "+
-        " AND n.deathYear IS NULL "+
-        " GROUP BY n.primaryName)"
+        query_string ='SELECT name.primaryName from name, movie, title, principalCast '\
+        ' WHERE principalCast.primaryName = name.primaryName '\
+        ' AND principalCast.birthYear = name.birthYear '\
+        ' AND principalCast.primaryTitle = title.primaryTitle '\
+        ' AND principalCast.originalTitle = title.originalTitle '\
+        ' AND principalCast.startYear = title.startYear '\
+        ' AND movie.primaryTitle = title.primaryTitle '\
+        ' AND movie.originalTitle = title.originalTitle '\
+        ' AND movie.startYear = title.startYear '\
+        ' AND title.runtimeInMinutes > 120 '\
+        ' AND name.deathYear IS NULL '\
+        ' GROUP BY name.primaryName '\
+        ' HAVING count(movie.originalTitle) >=  '\
+        ' (SELECT COUNT(movie.originalTitle) AS totalcounts FROM name n, movie m, title t, principalCast p '\
+        ' WHERE p.primaryName = n.primaryName '\
+        ' AND p.birthYear = n.birthYear '\
+        ' AND p.primaryTitle = t.primaryTitle ' \
+        ' AND p.originalTitle = t.originalTitle '\
+        ' AND p.startYear = t.startYear '\
+        ' AND m.primaryTitle = t.primaryTitle '\
+        ' AND m.originalTitle = t.originalTitle '\
+        ' AND m.startYear = t.startYear '\
+        ' AND t.runtimeInMinutes > 120 '\
+        ' AND n.deathYear IS NULL '\
+        ' GROUP BY n.primaryName) '
     elif query_request.scenario_id ==5:
-        pass
+        for key in query_request.filters.keys():
+            if key=="count":
+                count = query_request.filters.get(key)
+        query_string = 'SELECT Aname.primaryName, Bname.primaryName, AVG(averageRating) '\
+        ' FROM name Aname,name Bname, movie, title, principalCast Apc, principalCast Bpc '\
+        ' WHERE Aname.primaryName = Apc.primaryName '\
+        ' AND Aname.birthYear = Apc.birthYear '\
+        ' AND Bname.primaryName = Bpc.primaryName '\
+        ' AND Bname.birthYear = Bpc.birthYear '\
+        ' AND Aname.birthYear <> Bname.birthYear '\
+        ' AND Aname.primaryName <> Bname.primaryName '\
+        ' AND movie.originalTitle = title.originalTitle ' \
+        ' AND movie.primaryTitle = title.primaryTitle ' \
+        ' AND movie.startYear = title.startYear ' \
+        ' AND Apc.originalTitle = title.originalTitle ' \
+        ' AND Apc.primaryTitle = title.primaryTitle ' \
+        ' AND Apc.startYear = title.startYear '\
+        ' AND Bpc.originalTitle = title.originalTitle '\
+        ' AND Bpc.primaryTitle = title.primaryTitle '\
+        ' AND Bpc.startYear = title.startYear '\
+        ' GROUP BY Aname.primaryName, Bname.primaryName'\
+        ' HAVING COUNT(movie.originalTitle)>=2'
 
     else:
         query_string = get_default_query(query_request)
