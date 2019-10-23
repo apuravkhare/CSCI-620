@@ -79,10 +79,10 @@ def query_gen(query_request: QueryRequest):
         query_string = 'SELECT name.primaryName FROM name, movie, principalCast '\
         ' WHERE name.primaryName = principalCast.primaryName '\
         ' AND name.birthYear = principalCast.birthYear AND principalCast.category = \'actor\' '\
-        ' AND movie.startYear NOT IN (SELECT startYear FROM movie WHERE startYear <> {1}) '.format(y) \
+        ' AND movie.startYear NOT IN (SELECT startYear FROM movie WHERE startYear <> {1}) ' \
         ' AND name.deathYear IS NULL AND principalCast.primaryTitle = movie.primaryTitle '\
         ' AND principalCast.originalTitle = movie.originalTitle AND principalCast.startYear = movie.startYear '\
-        ' AND name.primaryName LIKE \'{1}%\''.format(phrase)
+        ' AND name.primaryName LIKE \'{2}%\''.format(y, phrase)
     elif query_request.scenario_id == 2:
         pass
     elif query_request.scenario_id == 3:
