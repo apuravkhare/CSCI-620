@@ -146,7 +146,66 @@ def query_gen(query_request: QueryRequest):
         ' AND Bpc.startYear = title.startYear \n'\
         ' GROUP BY Aname.primaryName, Bname.primaryName\n'\
         ' HAVING COUNT(movie.originalTitle)>={1}'.format(count)
-
+    elif query_request.scenario_id ==6:
+        for key in query_request.filters.keys():
+            if key=="count":
+                count=query_request.filters.get(key)
+            if key=="genre":
+                genre=query_request.filters.get(key)
+        query_string = 'SELECT n.primaryName FROM name n\n'\
+        'inner join principalCast pc on pc.primaryName = n.primaryName and pc.birthYear = n.birthYear\n'\
+        'inner join movie m on m.originalTitle = pc.originalTitle and m.primaryTitle = pc.primaryTitle and m.startYear = pc.startYear\n'\
+        'inner join titleGenres tg on tg.originalTitle = m.originalTitle and tg.primaryTitle = m.primaryTitle and tg.startYear = m.startYear\n'\
+        'where tg.genre = \'{1}\' and m.movieType = \'movie\' and pc.category = \'actor\'\n'\
+        'group by n.primaryName, n.birthYear\n'\
+        'having COUNT(CONCAT(pc.originalTitle, pc.primaryTitle, pc.startYear)) > {2};'.format(genre, count)
+    elif query_request.scenario_id==7:
+        for key in query_request.filters.keys():
+            if key=="count":
+                count=query_request.filters.get(key)
+        query_string='select n.primaryName as actor, d.primaryName as director, d.originalTitle, m.movieType\n'\
+        'from name n\n'\
+        'inner join principalCast pc on pc.primaryName = n.primaryName and pc.birthYear = n.birthYear\n'\
+        'inner join directors d on d.originalTitle = pc.originalTitle and d.startYear = pc.startYear\n'\
+        'inner join movie m on m.originalTitle = d.originalTitle and m.primaryTitle = d.primaryTitle and m.startYear = d.startYear\n'\
+        'where pc.category = \'actor\'\n'\
+        'group by n.primaryName, n.birthYear, d.primaryName, d.birthYear\n'\
+        'having COUNT(CONCAT(d.originalTitle, d.primaryTitle, d.startYear)) > {1}'.format(count)
+    elif query_request.scenario_id==8:
+        query_string='select e.originalTitle, e.startYear, t.averageRating\n'\
+        'from tvEpisode e\n'\
+        'inner join title t on e.originalTitle = t.originalTitle and e.primaryTitle = t.primaryTitle and e.startYear = t.startYear\n'\
+        'inner join ( select s.originalTitle, s.primaryTitle, s.startYear, MAX(t.averageRating) as maxRating\n'\
+        'from tvEpisode e\n'\
+        'inner join title t on e.originalTitle = t.originalTitle and e.primaryTitle = t.primaryTitle and e.startYear = t.startYear\n'\
+        'inner join tvSeries s on s.originalTitle = e.seriesOriginalTitle and s.primaryTitle = e.seriesPrimaryTitle and s.startYear = e.seriesStartYear\n'\
+        'where s.endYear is not null and s.startYear <> s.endYear\n'\
+        'group by e.startYear ) r on r.originalTitle = e.seriesOriginalTitle and r.primaryTitle = e.seriesPrimaryTitle and r.startYear = e.seriesStartYear\n'\
+        'where t.averageRating = r.maxRating;'
+    elif query_request.scenario_id==9:
+        for key in query_request.filters.keys():
+            if key=="count":
+                count=query_request.filters.get(key)
+        query_string='select w.primaryName as writer, d.primaryName as director\n'\
+        'from writers w\n'\
+        'inner join directors d on d.originalTitle = d.originalTitle and d.startYear = w.startYear\n'\
+        'inner join tvSeries s on s.originalTitle = d.originalTitle and s.startYear = d.startYear\n'\
+        'group by w.primaryName, w.birthYear, d.primaryName, d.birthYear\n'\
+        'having COUNT(CONCAT(d.originalTitle, d.primaryTitle, d.startYear)) > {1};'.format(count)
+    elif query_request.scenario_id==10:
+        for key in query_request.filters.keys():
+            if key=="startYear":
+                startYear=query_request.filters.get(key)
+            if key=="endYear":
+                endYear=query_request.filters.get(key)
+        query_string = 'select s.originalTitle, s.primaryTitle, s.startYear\n'\
+        'from tvSeries s\n'\
+        'inner join title t on s.originalTitle = t.originalTitle and s.primaryTitle = t.primaryTitle and s.startYear = t.startYear\n'\
+        'inner join ( select t.startYear, MAX(t.averageRating) as maxRating\n'\
+        'from title t\n'\
+        'inner join tvSeries s on s.originalTitle = t.originalTitle and s.primaryTitle = t.primaryTitle and s.startYear = t.startYear\n'\
+        'where s.endYear is not null and s.startYear between {1} and {2} ) r on r.startYear = s.startYear\n'\
+        'where t.averageRating = r.maxRating;'.format(startYear, endYear)
     else:
         query_string = get_default_query(query_request)
     return query_string
