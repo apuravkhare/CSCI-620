@@ -59,6 +59,7 @@
 	The database is stored using Microsoft SQL Server 2017 and the queries are built accordingly.
 	\begin{figure}[ht]
 		\includegraphics[width=8cm]{Screenshots/Frontend.png}
+                \caption{Front-end - Applying applicable filters}
 		\label{frontend}
 		\centering
 	\end{figure}
@@ -70,8 +71,18 @@ Our development phases uses the following technologies,
 	\item Microsoft SQL Server 2017
 \end{itemize}
 Due to memory and storage constraints, the database size was cut down to only those entries after the year 2000. The related tables are adjusted accordingly.
+\subsection{Performance considerations}
+	SQL Server creates clustered indexes for all columns in the primary key. In addition to that, we added non-clustered indexes on columns that were frequently used for look-up in the tables. These include the year and name columns in the title and name tables, and genre column in the titleGenres table. Indexes are added using the following scripts:
+        \begin{lstlisting}
+CREATE INDEX IX_title_name on title(originalTitle);
+CREATE INDEX IX_title_year on title(startYear);
+CREATE INDEX IX_name_name on name(primaryName);
+CREATE INDEX IX_name_year on name(deathYear);
+CREATE INDEX IX_genre on titleGenres(genre);
+        \end{lstlisting}
+        Overall, a 10-15\% performance improvement was observed in the queries that filter on the non-text (deathYear and startYear) columns after applying the indexes.
 	\subsection{Query Scenarios}
-	\begin{itemize}
+	\begin{enumerate}
 		\item List the names of alive actors whose name starts with a given keyword (such as “Phi”)and did not participate in any movie in a given year (such as 2014)\\
                 \begin{lstlisting}
 SELECT name.primaryName FROM name, movie, principalCast
@@ -82,8 +93,29 @@ AND name.deathYear IS NULL AND principalCast.primaryTitle = movie.primaryTitle
 AND principalCast.originalTitle = movie.originalTitle AND principalCast.startYear = movie.startYear
 AND name.primaryName LIKE 'phi';
                 \end{lstlisting}
-                \textbf{Result:}
+
+         	\begin{figure}[ht]
+		    \includegraphics[width=8cm]{Screenshots/Scenario1.png}
+		    \label{frontend}
+                    \caption{Scenario 1 Result}
+		    \centering
+	        \end{figure}
 		\item List the names of alive producers who have produced more than a given number (such as 50) of talk  shows in a  given  year  (such  as 2017) and  whose  name contains  a  given  keyword  (such  as “Gill”)
+                \begin{lstlisting}
+SELECT n.primaryName
+FROM name n
+inner join principalCast pc on pc.primaryName = n.primaryName and pc.birthYear = n.birthYear
+inner join titleGenres tg on tg.originalName = pc.originalName and tg.primaryTitle = pc.primaryTitle and tg.startYear = pc.startYear
+where n.deathYear is null and tg.genre = 'talk-show' and tg.startYear = 2017 and n.primaryName like 'gill%'
+group by n.primaryName
+having count(tg.originalTitle) >= 50;
+                \end{lstlisting}
+         	\begin{figure}[ht]
+		    \includegraphics[width=8cm]{Screenshots/Scenario2.png}
+		    \label{frontend}
+                    \caption{Scenario 2 Result}
+		    \centering
+	        \end{figure}
 		\item List the average runtime for movies whose original title contain a given keyword such as (“star”)and were written by somebody who is still alive
                 \begin{lstlisting}
 SELECT top 100 avg(runtimeInMinutes) as AverageRunTime FROM movie, title,writers, name
@@ -94,10 +126,11 @@ AND writers.startYear = title.startYear AND writers.primaryName = name.primaryNa
 AND writers.birthYear = name.birthYear AND name.deathYear IS NULL
 AND movie.originalTitle LIKE '%gill%';
                 \end{lstlisting}
-                \textbf{Result:}
+
          	\begin{figure}[ht]
 		    \includegraphics[width=8cm]{Screenshots/Scenario3.png}
 		    \label{frontend}
+                    \caption{Scenario 3 Result}
 		    \centering
 	        \end{figure}
 		\item List the names of alive producers with the greatest number of long-run movies produced (runtime greater than 120min)
@@ -115,6 +148,7 @@ AND title.runtimeInMinutes > 120
 AND name.deathYear IS NULL
 GROUP BY name.primaryName
 HAVING count(movie.originalTitle) >=
+(Select Max(totalCounts) from
 (SELECT COUNT(movie.originalTitle) AS totalcounts FROM name n, movie m, title t, principalCast p
 WHERE p.primaryName = n.primaryName
 AND p.birthYear = n.birthYear
@@ -125,11 +159,15 @@ AND m.primaryTitle = t.primaryTitle
 AND m.originalTitle = t.originalTitle
 AND m.startYear = t.startYear
 AND t.runtimeInMinutes > 120
-AND n.deathYear IS NULL
-GROUP BY n.primaryName)
+AND n.deathYear IS NULL) tc)
                 \end{lstlisting}
-                \textbf{Result:}
-		\item List the unique name pairs of actors who have acted together in more than a given number (such as 2)  movies and sort them by average movie rating (of those they acted together
+         	\begin{figure}[ht]
+		    \includegraphics[width=8cm]{Screenshots/Scenario4.png}
+		    \label{frontend}
+                    \caption{Scenario 4 Result}
+		    \centering
+	        \end{figure}
+		\item List the unique name pairs of actors who have acted together in more than a given number (such as 2)  movies and sort them by average movie rating (of those they acted together).
                 \begin{lstlisting}
 SELECT Aname.primaryName, Bname.primaryName, AVG(averageRating)
 FROM name Aname,name Bname, movie, title, principalCast Apc, principalCast Bpc
@@ -151,7 +189,12 @@ AND Bpc.startYear = title.startYear
 GROUP BY Aname.primaryName, Bname.primaryName
 HAVING COUNT(movie.originalTitle)>=2;
                 \end{lstlisting}
-                \textbf{Result:}
+         	\begin{figure}[ht]
+		    \includegraphics[width=8cm]{Screenshots/Scenario5.png}
+		    \label{frontend}
+                    \caption{Scenario 5 Result}
+		    \centering
+	        \end{figure}
 		\item List the actors that have worked in x movies (say 10) from one genre (say horror)
                 \begin{lstlisting}
 SELECT n.primaryName FROM name n
@@ -162,7 +205,12 @@ where tg.genre = 'horror' and m.movieType = 'movie' and pc.category = 'actor'
 group by n.primaryName, n.birthYear
 having COUNT(CONCAT(pc.originalTitle, pc.primaryTitle, pc.startYear)) > 10;
                 \end{lstlisting}
-                \textbf{Result:}
+         	\begin{figure}[ht]
+		    \includegraphics[width=8cm]{Screenshots/Scenario5.png}
+		    \label{frontend}
+                    \caption{Scenario 6 Result}
+		    \centering
+	        \end{figure}
 		\item Actors and directors that have worked together certain number of times in titles that are not tv shows and the titles that they have worked in together.
                 \begin{lstlisting}
 select n.primaryName as actor, d.primaryName as director, d.originalTitle, m.movieType
@@ -174,7 +222,12 @@ where pc.category = 'actor'
 group by n.primaryName, n.birthYear, d.primaryName, d.birthYear
 having COUNT(CONCAT(d.originalTitle, d.primaryTitle, d.startYear)) > 5;
                 \end{lstlisting}
-                \textbf{Result:}
+         	\begin{figure}[ht]
+		    \includegraphics[width=8cm]{Screenshots/Scenario7.png}
+		    \label{frontend}
+                    \caption{Scenario 7 Result}
+		    \centering
+	        \end{figure}
 		\item The highest rated episodes of shows that have spanned more than one year and have ended, by year sorted highest to lowest.
                 \begin{lstlisting}
 select top 100 e.originalTitle, e.startYear, t.averageRating
@@ -188,7 +241,12 @@ where s.endYear is not null and s.startYear <> s.endYear
 group by s.originalTitle, s.primaryTitle, s.startYear ) r on r.originalTitle = e.seriesOriginalTitle and r.primaryTitle = e.seriesPrimaryTitle and r.startYear = e.seriesStartYear
 where t.averageRating = r.maxRating;
                 \end{lstlisting}
-                \textbf{Result:}
+         	\begin{figure}[ht]
+		    \includegraphics[width=8cm]{Screenshots/Scenario8.png}
+		    \label{frontend}
+                    \caption{Scenario 8 Result}
+		    \centering
+	        \end{figure}
 		\item Writer, director that have worked together in atleast x different TV Shows
                 \begin{lstlisting}
 select top 100 w.primaryName as writer, d.primaryName as director
@@ -198,7 +256,12 @@ inner join tvSeries s on s.originalTitle = d.originalTitle and s.startYear = d.s
 group by w.primaryName, w.birthYear, d.primaryName, d.birthYear
 having COUNT(CONCAT(d.originalTitle, d.primaryTitle, d.startYear)) > 5;
                 \end{lstlisting}
-                \textbf{Result:}
+         	\begin{figure}[ht]
+		    \includegraphics[width=8cm]{Screenshots/Scenario9.png}
+		    \label{frontend}
+                    \caption{Scenario 9 Result}
+		    \centering
+	        \end{figure}
 		\item List the most popular TV shows between the years x and y that are still running.
                 \begin{lstlisting}
 select top 100 s.originalTitle, s.primaryTitle, s.startYear
@@ -214,10 +277,11 @@ where t.averageRating = r.maxRating;'.format(startYear, endYear);
                 \textbf{Result:}
          	\begin{figure}[ht]
 		    \includegraphics[width=8cm]{Screenshots/Scenario10.png}
+                    \caption{Scenario 10 Result}
 		    \label{frontend}
 		    \centering
 	        \end{figure}
-	\end{itemize}
+	\end{enumerate}
 	
 	
 \end{document}

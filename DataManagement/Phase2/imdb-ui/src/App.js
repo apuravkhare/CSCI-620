@@ -78,7 +78,12 @@ class App extends Component {
           'primaryName': {
             'op': 'contains',
             'type': 'string',
-            'default': 'gill'
+            'default': 'gi'
+          },
+          'count': {
+            'op': '=',
+            'type': 'number',
+            'default': '50'
           }
         }
       },

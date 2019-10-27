@@ -84,14 +84,29 @@ def query_gen(query_request: QueryRequest):
             else:
                 phrase = query_request.filters.get(key)
                 phrase = phrase.replace("'", "''")
-        query_string = 'SELECT top 100 name.primaryName FROM name, movie, principalCast \n' \
+        query_string = 'SELECT top 20 name.primaryName FROM name, movie, principalCast \n' \
                        ' WHERE name.primaryName = principalCast.primaryName \n' \
                        ' AND name.birthYear = principalCast.birthYear AND principalCast.category = \'actor\' \n' \
                        ' AND movie.startYear NOT IN (SELECT startYear FROM movie WHERE startYear <> {0}) \n' \
                        ' AND name.deathYear IS NULL AND principalCast.primaryTitle = movie.primaryTitle \n' \
                        ' AND principalCast.originalTitle = movie.originalTitle AND principalCast.startYear = movie.startYear \n' \
-                       ' AND name.primaryName LIKE \'{1}%\''.format(y, phrase)
+                       ' AND name.primaryName LIKE \'{1}%\''\
+                       ' GROUP BY name.primaryName '.format(y, phrase)
     elif query_request.scenario_id == 2:
+        for key in query_request.filters.keys():
+            if key == "startYear":
+                start_year = int(query_request.filters.get(key))
+            if key == "count":
+                count = query_request.filters.get(key)
+            if key == "primaryName":
+                primary_name = query_request.filters.get(key)
+        query_string = 'SELECT top 20 n.primaryName \n' \
+                       'FROM name n \n' \
+                       'inner join principalCast pc on pc.primaryName = n.primaryName and pc.birthYear = n.birthYear \n' \
+                       'inner join titleGenres tg on tg.originalTitle = pc.originalTitle and tg.primaryTitle = pc.primaryTitle and tg.startYear = pc.startYear \n' \
+                       'where n.deathYear is null and tg.genre = \'talk-show\' and tg.startYear = {0} and n.primaryName like \'{1}%\' \n' \
+                       'group by n.primaryName \n' \
+                       'having count(tg.originalTitle) >= {2}'.format(start_year, primary_name, count)
         pass
     elif query_request.scenario_id == 3:
         for key in query_request.filters.keys():
@@ -106,7 +121,7 @@ def query_gen(query_request: QueryRequest):
                        ' AND writers.birthYear = name.birthYear AND name.deathYear IS NULL \n' \
                        ' AND movie.originalTitle LIKE \'%{0}%\''.format(phrase)
     elif query_request.scenario_id == 4:
-        query_string = 'SELECT top 100 name.primaryName from name, movie, title, principalCast \n' \
+        query_string = 'SELECT top 20 name.primaryName from name, movie, title, principalCast \n' \
                        ' WHERE principalCast.primaryName = name.primaryName \n' \
                        ' AND principalCast.birthYear = name.birthYear \n' \
                        ' AND principalCast.primaryTitle = title.primaryTitle \n' \
@@ -118,7 +133,8 @@ def query_gen(query_request: QueryRequest):
                        ' AND title.runtimeInMinutes > 120 \n' \
                        ' AND name.deathYear IS NULL \n' \
                        ' GROUP BY name.primaryName \n' \
-                       ' HAVING count(movie.originalTitle) >=  \n' \
+                       ' HAVING count(movie.originalTitle) >= \n' \
+                       ' (Select max(totalCounts) from \n'\
                        ' (SELECT COUNT(movie.originalTitle) AS totalcounts FROM name n, movie m, title t, principalCast p \n' \
                        ' WHERE p.primaryName = n.primaryName \n' \
                        ' AND p.birthYear = n.birthYear \n' \
@@ -130,12 +146,12 @@ def query_gen(query_request: QueryRequest):
                        ' AND m.startYear = t.startYear \n' \
                        ' AND t.runtimeInMinutes > 120 \n' \
                        ' AND n.deathYear IS NULL \n' \
-                       ' GROUP BY n.primaryName) '
+                       ' GROUP BY n.primaryName) tc )'
     elif query_request.scenario_id == 5:
         for key in query_request.filters.keys():
             if key == "count":
                 count = query_request.filters.get(key)
-        query_string = 'SELECT top 100 Aname.primaryName, Bname.primaryName, AVG(averageRating) \n' \
+        query_string = 'SELECT top 20 Aname.primaryName, Bname.primaryName, AVG(averageRating) \n' \
                        ' FROM name Aname,name Bname, movie, title, principalCast Apc, principalCast Bpc \n' \
                        ' WHERE Aname.primaryName = Apc.primaryName \n' \
                        ' AND Aname.birthYear = Apc.birthYear \n' \
@@ -160,7 +176,7 @@ def query_gen(query_request: QueryRequest):
                 count = query_request.filters.get(key)
             if key == "genre":
                 genre = query_request.filters.get(key)
-        query_string = 'SELECT top 100 n.primaryName FROM name n\n' \
+        query_string = 'SELECT top 20 n.primaryName FROM name n\n' \
                        'inner join principalCast pc on pc.primaryName = n.primaryName and pc.birthYear = n.birthYear\n' \
                        'inner join movie m on m.originalTitle = pc.originalTitle and m.primaryTitle = pc.primaryTitle and m.startYear = pc.startYear\n' \
                        'inner join titleGenres tg on tg.originalTitle = m.originalTitle and tg.primaryTitle = m.primaryTitle and tg.startYear = m.startYear\n' \
@@ -171,16 +187,16 @@ def query_gen(query_request: QueryRequest):
         for key in query_request.filters.keys():
             if key == "count":
                 count = query_request.filters.get(key)
-        query_string = 'select top 100 n.primaryName as actor, d.primaryName as director, d.originalTitle, m.movieType\n' \
+        query_string = 'select top 20 n.primaryName as actor, d.primaryName as director, d.originalTitle, m.movieType\n' \
                        'from name n\n' \
                        'inner join principalCast pc on pc.primaryName = n.primaryName and pc.birthYear = n.birthYear\n' \
                        'inner join directors d on d.originalTitle = pc.originalTitle and d.startYear = pc.startYear\n' \
                        'inner join movie m on m.originalTitle = d.originalTitle and m.primaryTitle = d.primaryTitle and m.startYear = d.startYear\n' \
                        'where pc.category = \'actor\'\n' \
-                       'group by n.primaryName, n.birthYear, d.primaryName, d.birthYear\n' \
+                       'group by n.primaryName, n.birthYear, d.primaryName, d.birthYear, d.originalTitle, m.movieType\n' \
                        'having COUNT(CONCAT(d.originalTitle, d.primaryTitle, d.startYear)) > {0}'.format(count)
     elif query_request.scenario_id == 8:
-        query_string = 'select top 100 e.originalTitle, e.startYear, t.averageRating\n' \
+        query_string = 'select top 20 e.originalTitle, e.startYear, t.averageRating\n' \
                        'from tvEpisode e\n' \
                        'inner join title t on e.originalTitle = t.originalTitle and e.primaryTitle = t.primaryTitle and e.startYear = t.startYear\n' \
                        'inner join ( select s.originalTitle, s.primaryTitle, s.startYear, MAX(t.averageRating) as maxRating\n' \
@@ -206,7 +222,7 @@ def query_gen(query_request: QueryRequest):
                 startYear = query_request.filters.get(key)
             if key == "endYear":
                 endYear = query_request.filters.get(key)
-        query_string = 'select top 100 s.originalTitle, s.primaryTitle, s.startYear\n' \
+        query_string = 'select top 20 s.originalTitle, s.primaryTitle, s.startYear\n' \
                        'from tvSeries s\n' \
                        'inner join title t on s.originalTitle = t.originalTitle and s.primaryTitle = t.primaryTitle and s.startYear = t.startYear\n' \
                        'inner join ( select t.startYear, MAX(t.averageRating) as maxRating\n' \
