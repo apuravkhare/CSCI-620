@@ -44,7 +44,7 @@ class QueryScenario extends Component {
                     <TableDisplay headers={this.state.columns || []} rowData={this.state.data || []}>
                     </TableDisplay>
                 </div>
-                <Navbar fixed="bottom">
+                <Navbar fixed="bottom" bg="light">
                         <Button className="mx-1" variant="info"
                         onClick={() => this.setState({displayFiltersModal: true})}
                         disabled={this.state.isExecuting || !this.props.applicableFilters }>

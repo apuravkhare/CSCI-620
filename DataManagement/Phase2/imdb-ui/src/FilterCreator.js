@@ -26,17 +26,17 @@ class FilterCreator extends Component {
             {
                 Object.keys(this.props.applicableFilters).map(filterColumn => 
                     <Form.Group key={filterColumn} as={Row} >
-                        <Col sm={3}>
+                        <Col>
                             <Form.Label>
                                 {filterColumn}
                             </Form.Label>
                         </Col>
-                        <Col sm={1}>
+                        <Col>
                             <Form.Label>
                                 {this.props.applicableFilters[filterColumn].op}
                             </Form.Label>
                         </Col>
-                        <Col sm={7}>
+                        <Col sm={6}>
                             <Form.Control defaultValue={this.props.appliedFilters[filterColumn]}
                             onChange={(event) => this.props.appliedFilters[filterColumn] = event.target.value } />
                         </Col>
