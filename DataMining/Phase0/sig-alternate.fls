@@ -1,11 +1,11 @@
-PWD /Users/mac/Desktop/backup/Gra_1/BD/paper_template
+PWD /Users/mac/Documents/github/CSCI-620/DataMining/Phase0
 INPUT /usr/local/texlive/2018/texmf.cnf
 INPUT /usr/local/texlive/2018/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.tex
-OUTPUT /Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.log
-INPUT /Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.cls
-INPUT /Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.cls
+INPUT /Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.tex
+OUTPUT /Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.log
+INPUT /Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.cls
+INPUT /Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.cls
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/graphics/epsfig.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/graphics/epsfig.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphicx.sty
@@ -61,9 +61,9 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/base/t1enc.def
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/ae/t1aer.fd
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/ae/t1aer.fd
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/ae/aer9.tfm
-INPUT /Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.aux
-INPUT /Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.aux
-OUTPUT /Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.aux
+INPUT /Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.aux
+INPUT /Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.aux
+OUTPUT /Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.aux
 INPUT /usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
@@ -113,7 +113,7 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/base/ulasy.fd
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/latex-fonts/lasy9.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/latex-fonts/lasy6.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/latex-fonts/lasy5.tfm
-OUTPUT /Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.pdf
+OUTPUT /Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.pdf
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/vf/adobe/helvetic/phvb8t.vf
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm
 INPUT /usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map
@@ -130,7 +130,7 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
-INPUT /Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.aux
+INPUT /Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.aux
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb

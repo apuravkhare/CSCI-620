@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1571849262 "/Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.tex" "/Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.pdf" "sig-alternate" 1571849263
-  "/Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.aux" 1571849263 834 5f3b62dc3b343311b2d0928135599287 ""
-  "/Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.tex" 1571849262 3252 be7d44efcbd7024826dca5f8ef09d285 ""
+["pdflatex"] 1572191239 "/Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.tex" "/Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.pdf" "sig-alternate" 1572191240
+  "/Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.aux" 1572191240 834 5f3b62dc3b343311b2d0928135599287 ""
+  "/Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.tex" 1572191239 3630 74b6d96f530d43985a8084382b4acaa3 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm" 1480098688 4484 b828043cbd581d289d955903c1339981 ""
@@ -86,12 +86,14 @@
   "/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1523934492 2717033 f61a5287d9c22a39a74f1979fe3f905c ""
   "/usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt" 1523934516 4220280 10cab8fbd7c5a7c52aba9917e190d018 ""
   "/usr/local/texlive/2018/texmf.cnf" 1523934483 577 0b39adfd7c93507ff20c9c14c2f1a33f ""
-  "sig-alternate.aux" 1571849263 834 5f3b62dc3b343311b2d0928135599287 ""
-  "sig-alternate.cls" 1290871956 59660 8753848f67f8203fc161e28be692156e ""
-  "sig-alternate.tex" 1571849262 3252 be7d44efcbd7024826dca5f8ef09d285 ""
+  "sig-alternate.aux" 1572191240 834 5f3b62dc3b343311b2d0928135599287 ""
+  "sig-alternate.cls" 1572024423 59660 8753848f67f8203fc161e28be692156e ""
+  "sig-alternate.tex" 1572191239 3630 74b6d96f530d43985a8084382b4acaa3 ""
   (generated)
-  "/Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.pdf"
-  "sig-alternate.log"
-  "sig-alternate.pdf"
   "/Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.log"
+  "/Users/mac/Desktop/backup/Gra_1/BD/paper_template/sig-alternate.pdf"
+  "/Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.log"
   "sig-alternate.aux"
+  "sig-alternate.pdf"
+  "sig-alternate.log"
+  "/Users/mac/Documents/github/CSCI-620/DataMining/Phase0/sig-alternate.pdf"
