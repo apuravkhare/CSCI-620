@@ -3,7 +3,7 @@ Airb=read.csv("~/Documents/R/AB_NYC_2019.csv",header=T,na.strings="?")
 attach(Airb)
 library(sqldf)
 library(rpart)
-
+quantile(Airb$price)
 mean(Airb$price)
 price_x=Airb$price>100
 Airb=data.frame(Airb,price_x)
@@ -24,8 +24,10 @@ fit = rpart(price_x~longitude+latitude+minimum_nights+
 printcp(fit) # display the results
 plotcp(fit) # visualize cross-validation results
 summary(fit) # detailed summary of splits
-plot(fit) # plot tree
+rpart.plot(fit) # plot tree
 
 predtree=predict(fit,newdata=TEst,type="class")
 table(TEst$price_x,predtree)
-
+cm = as.matrix(table(Actual = TEst$price_x, Predicted = predtree))
+accu=sum(diag(cm))/length(TEst$price_x)
+message(accu)
