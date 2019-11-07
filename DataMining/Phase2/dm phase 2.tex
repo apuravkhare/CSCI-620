@@ -32,7 +32,20 @@
 	\section{Current progress}
 	
 	\subsection{The Data Mining task}
-	As mentioned in the previous phase, the data mining task selected was to build a classification model that is capable of predicting the price group a listing would fall into. This decision is based on a number of reasons. One, a model capable of predicting the price of a new listing has real-world applications. A landlord looking to put up a listing for a new house in New York would be able to use this model to determine the expected range of prices for his house and price it accordingly to make the most profit. Two, the exploration of the dataset revealed that there are a number of attributes in the data that correlate to the price. This indicates that these attributes do help determine the price and validates our hypothesis that the price can be predicted reasonably well by a data mining algorithm. Figure \ref{corr} depicts the correlation of some of the attributes with the price, which will help choose the right features for the model. 
+	As mentioned in the previous phase, the data mining task selected was to build a classification model that is capable of predicting the price group a listing would fall into.
+	
+	\subsection{Targeted Knowledge}
+	This data mining task is based on a number of factors. One, a model capable of predicting the price of a new listing has real-world applications. A landlord looking to put up a listing for a new house in New York would be able to use this model to determine the expected range of prices for his house and price it accordingly to make the most profit. Two, the exploration of the dataset revealed that there are a number of attributes in the data that correlate to the price. This indicates that these attributes do help determine the price and validates our hypothesis that the price can be predicted reasonably well by a data mining algorithm. 
+	\subsection{Exploration and visualization} 
+	Correlation plots were plotted on attributes against the price to see how they impact it. As a starting point, the attributes that have business meaning in the context of the data are used to plot the correlation plots. These attributes are: "neighbourhood", "neighbourhood\_group", "room\_type", "minimum\_nights", and "availability\_365".\\
+	Following are the notable observations:
+	\begin{enumerate}
+		\item The price of an Airbnb listing varies by the neighbourhood group that it is in. As observed from the correlation plot, the prices of the Airbnb listings in Brooklyn and Manhattan are relatively higher than those in Broknx, Queens, and Staten Island, with the listings in Staten Island being the least priced.
+		\item The room type of the Airbnb listing affects its price. There are three room types in the dataset: Entire home/apartment, Private room, and Shared room. The correlation plot clearly shows that Entire home/apartments are priced higher than private rooms, and Shared rooms are the least expensive of them all.
+		\item The neighbourhood impacts the price of the Airbnb listing as well. From the correlation plot, it is observed that listings in neighbourhoods like "Upper West Side", "Upper East Side", and "Easts Harlem" have a higher price compared to those in other areas.
+		\item Some attributes which initially seemed to have business meaning did not have a strong correlation to the price. These attributes are "availability\_365", and "minimum\_nights".
+	\end{enumerate}
+	Figure \ref{corr} depicts the correlation of some of the attributes with the price, which will help choose the right features for the model. 
 	\begin{figure}[ht]
 		\includegraphics[width=8cm]{corr.png}
 		\centering
@@ -42,17 +55,17 @@
 	
 	\subsection{Categorizing Price}
 	Price the New York Airbnb Dataset is a continuous attribute with the following details - \newline
-	 Min.   :    0.0  \newline
+	Min.   :    10.0  \newline
 	1st Qu.:   69.0  \newline
-	Median :  106.0  \newline
-	Mean   :  152.7  \newline
-	3rd Qu.:  175.0  \newline
+	Median :  101.0  \newline
+	Mean   :  141.8  \newline
+	3rd Qu.:  170.0  \newline
 	Max.   :10000.0  \newline
 	To perform a classification task on the price, this attribute has to be made categorical. We used quartiles to create four different classes ranging from cheap to expensive. The quartiles were as follows,
-	Category 1 : 0 - 25\% (0- 69) \newline
-	Category 2 : 26 - 50\% (70 -106) \newline
-	Category 3 : 50 - 75\% (107- 175) \newline
-	Category 4 : 75 - 100\% (176- 10000) \newline
+	Category 1 : 25\% (10 - 69) \newline
+	Category 2 : 50\% (70 - 101) \newline
+	Category 3 : 75\% (102 - 170) \newline
+	Category 4 : 100\% (171 - 10000) \newline
 	Figure \ref{dist} shows the distribution of the data after the categorical split. As seen below, the distribution is well balanced with all classes having approximately the same number of instances, eliminating any class skewed dataset problems.
 	\begin{figure}[ht]
 		\includegraphics[width=8cm]{dist.png}
@@ -61,11 +74,27 @@
 		\centering
 	\end{figure}
 	\subsection{Cleaning the dataset}
+	Since the dataset consists of both missing and inconsistent values, the first stage in the data mining process is to clean or eliminate these records.
+	The total number of records in the dataset is 48,895 records. 10,052 records had missing values in last\_review and reviews\_per\_month. However, since we foresee some significance in using these attributes to determine price, these missing records have to be eliminated to prevent incorrect data. The size of the dataset after eliminating the missing values is 38,843 records.
+	Further, there are 10 records in the dataset that have the price value as 0. While these data records may be accurate, they form outliers that can interfere with the model's accuracy. 
+	The final dataset consists of 38,833 records. 
 	\subsection{Feature Engineering} 
+	\subsubsection{Dimensionality Reduction}
+	In an attempt to reduce the dimensions of the dataset, attributes that are unlikely to contribute to the prediction of the price group without intensive preprocessing are eliminated. For instance, while the host name and the description of the listing could indirectly contribute to the price (An unknown pattern that could reveal that customers are more likely to pick a specific listing based on description - old ancient house versus new house in the suburb), these features are not easily found through simple classification techniques. 
+	\subsubsection{Factoring attributes}
+	Factoring attributes allows R to encode the vector (in this case, the attribute column) into a categorical attribute. For the attributes room type, neighborhood, neighborhood group are all categorical values and hence these are factored to make them understandable to an R algorithm. The attribute availability 365 is a real valued number. Since this value would not easily be used to make a decision tree split, the attribute is split into 3 bins based on the 33rd and 66th percentile and then factored.  
+	\subsubsection{Leveling attributes}
+	Leveling an attribute in R allows categorical attributes to be ordered in a meaningful manner. For instance, the attribute room type is ordered for 3 levels.
+	\begin{itemize}
+		\item Level 1 - Shared room
+		\item Level 2 - Private room
+		\item Level 3 - Entire home/apartment
+	\end{itemize}
+	
 	\subsection{Train and test split}
-	\subsection{Basic model}
-	\subsection{Evaluation metrics}
-	\section{Future work} 
+	The final stage of the preprocessing is splitting the dataset into train and test in a 80-20 ratio. The dataset is shuffled to ensure that there is representation of the data distribution in both the parts. All models that will be built will use train and test accuracy as a metric to determine performance. These accuracy measures will also be used to identify potential problems such as overfitting and underfitting if they occur and in turn work towards a model that eliminates such issues.  
+	\section{Next steps} 
+	
 	
 	
 \end{document}
