@@ -32,7 +32,13 @@
 	\section{Current progress}
 	
 	\subsection{The Data Mining task}
-	As mentioned in the previous phase, the data mining task selected was to build a classification model that is capable of predicting the price group a listing would fall into. This decision is based on a number of reasons. One, a model capable of predicting the price of a new listing has real-world applications. A landlord looking to put up a listing for a new house in New York would be able to use this model to determine the expected range of prices for his house and price it accordingly to make the most profit. Two, the exploration of the dataset revealed that there are a number of attributes in the data that correlate to the price. This indicates that these attributes do help determine the price and validates our hypothesis that the price can be predicted reasonably well by a data mining algorithm. Figure 1 depicts the correlation of some of the attributes with the price, which will help choose the right features for the model. 
+	As mentioned in the previous phase, the data mining task selected was to build a classification model that is capable of predicting the price group a listing would fall into. This decision is based on a number of reasons. One, a model capable of predicting the price of a new listing has real-world applications. A landlord looking to put up a listing for a new house in New York would be able to use this model to determine the expected range of prices for his house and price it accordingly to make the most profit. Two, the exploration of the dataset revealed that there are a number of attributes in the data that correlate to the price. This indicates that these attributes do help determine the price and validates our hypothesis that the price can be predicted reasonably well by a data mining algorithm. Figure \ref{corr} depicts the correlation of some of the attributes with the price, which will help choose the right features for the model. 
+	\begin{figure}[ht]
+		\includegraphics[width=8cm]{corr.png}
+		\centering
+		\caption{Correlation of price between other attributes}
+		\label{corr}
+	\end{figure}
 	
 	\subsection{Categorizing Price}
 	Price the New York Airbnb Dataset is a continuous attribute with the following details - \newline
@@ -47,13 +53,18 @@
 	Category 2 : 26 - 50\% (70 -106) \newline
 	Category 3 : 50 - 75\% (107- 175) \newline
 	Category 4 : 75 - 100\% (176- 10000) \newline
-	Figure 2 shows the distribution of the data after the categorical split. 
-	
+	Figure \ref{dist} shows the distribution of the data after the categorical split. As seen below, the distribution is well balanced with all classes having approximately the same number of instances, eliminating any class skewed dataset problems.
+	\begin{figure}[ht]
+		\includegraphics[width=8cm]{dist.png}
+		\caption{Distribution of price after categorizing}
+		\label{dist}
+		\centering
+	\end{figure}
 	\subsection{Cleaning the dataset}
 	\subsection{Feature Engineering} 
 	\subsection{Train and test split}
 	\subsection{Basic model}
-	
+	\subsection{Evaluation metrics}
 	\section{Future work} 
 	
 	
