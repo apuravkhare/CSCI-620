@@ -105,7 +105,36 @@
 	\label{testhist}
 	\centering
 \end{figure}
-	\section{Next steps} 
+\section{Choosing the classification model}
+The next phase involved trying three different classification models to determine which one is more effective in modeling the dataet. The three considered were decision trees, K nearest neigbors, and Naive Bayes algorithm. \\
+For the purpose of testing with the raw dataset but still performing a classification tasks, the following modifications were made to the dataset.\\
+\begin{itemize}
+	\item The outliers in the price column were eliminated and price was split into two categories - less than 100 and greater than 100.
+	\item Only attributes with numerical values that required no preprocessing were used
+	\item The train and test split ratio was 9:1.
+\end{itemize}
+The three algorithms were fitted to this dataset using R and the following documents the results obtained from the same.
+\begin{itemize}
+	\item Decision Tree : Accuracy 72\%
+	\item K Nearest Neigbours : Accuracy 64\% (k =20)
+	\item Naive Bayes : Accuracy 68\%
+\end{itemize}
+\begin{figure}[ht]
+		\includegraphics[width=8cm]{line_diagram.jpg}
+		\caption{Accuracy performance - Decision Tree (Blue), Naïve Bayes (Yellow), kNN (Red)}
+		\label{linediag}
+		\centering
+	\end{figure}
+
+Figure \ref{linediag} depicts the performance of all three algorithms on the dataset. Through these results, we conclude that the decision tree algorithm is the most suitable for the New York Airbnb dataset and the next phase will be using only this algorithm.
+\section{Next steps} 
+The next phase will include the following steps and deliverables
+\begin{itemize}
+	\item Train a decision tree on the modified dataset to compare performance with the raw dataset.
+	\item Refine the generated tree by either pruning or grafting the tree based on its structure and train and test accuracy.
+	\item A model capable of predicting price group for any new listing in New York Airbnb
+	\item A visualization interface that depicts trends in pricing across neighborhoods for easy understanding.
+\end{itemize}
 	
 	
 	
