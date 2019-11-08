@@ -5,7 +5,7 @@ Airb=read.csv("~/Documents/R/AB_NYC_2019.csv",header=T,na.strings="?")
 attach(Airb)
 
 #price_x -> target classification value
-price_x=Airb$price>100
+price_x=Airb$price>50
 Airb=data.frame(Airb,price_x)
 
 #train and test divide

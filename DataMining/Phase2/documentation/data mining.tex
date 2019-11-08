@@ -30,7 +30,9 @@
 	
 	\section{Trials on the dataset}
 	\subsection{Decision Tree}
-	Decision Tree is a algorithm about
+	A decision Tree is is a decision support tool that uses a tree-like model of decisions and their possible consequences, 
+	including chance event outcomes, resource costs, and utility. 
+	
 
 	Because the data has many attributes of discrete, in order to do decision tree on our dataset, 
 	At first we did some simple modifications to the data. These modifications will be applied to 
@@ -39,28 +41,35 @@
 	data is generated in abnormal conditions and will greatly impact the result of decision tree model.
 	Secondly, we kept all the attributes of numberics and discarded other attributes. This step might looks like controversial
 	yet as we are doing just test, we think it is okay. Moreover, our aim is to make predictions yet decision tree
-	can only do classification, so we converted the aim attribute price from numberics to boolean value. 
-	In the end, we divided dataset to train and test by 9:1. 
+	can only do classification, so we converted the aim attribute price from numberics to boolean value. The means of the
+	dataset is about 130, so that every price greater than 100 will be tagged as true, otherwise false.
+	Last but not least, we divided the dataset to train and test by 9:1. 
 
 	The final result is about 72\% and concrete report can be found here
 
 	\subsection{k nearest neighbours}
-	k nearest neighbours(kNN) is about
+	k nearest neighbours(kNN) is a simple yet powerful algorithm for data mining. In k-NN classification, 
+	the output is a class membership. An object is classified by a plurality vote of its neighbors, 
+	with the object being assigned to the class most common among its k nearest neighbors. For example, if k = 1, 
+	then the object is simply assigned to the class of that single nearest neighbor.
+	In addition, the data used by kNN needs to be normalized because it uses distance to calculate varieties. 
+	What's more, k of kNN is a hyper-parameter, and there's no best k actually, but a popular choice of k is between 5-20.
 
-	the data processed by kNN needs to be normalized because it used distance to show varieties. 
-	What's more, k of kNN is a hyper-parameter, and a popular choice of k is between 5-20.
-
-	after doing the same process, the final result of kNN is 64\% with k=20. Report
+	After doing the same processing, the final result of kNN is 64\% with k=20. Here is the report.
 
 	\subsection{Naive Bayes}
-	Naive Bayes is about
-	Naive Bayes is good resistance to noise compared to the former 2. 
+	Naive Bayes is another simple classifier based on applying Bayes' 
+	theorem with strong (naïve) independence assumptions between the features. 
+	Naive Bayes is better resistance to noise compared to the former 2, however, we get rid of most
+	noise in the pre-processing. 
 	
-	the result of Naive Bayes is 68\%. Report
+	The result of Naive Bayes is 68\%. Here is the report.
 
 	\subsection{summaries}
+	After discussion, we decided to use decision trees as our algorithm to draw final conclusions.
+	Here is also a picture showing how these algorithms' accuracy along with different devision.
+	(x-col should be multipled by 50 and blue is decision tree, yellow is naïve Bayes, red is kNN)
+    \figure{line-diagram.jpg}
 
-
-	\section{Future plan}
 	
 \end{document}

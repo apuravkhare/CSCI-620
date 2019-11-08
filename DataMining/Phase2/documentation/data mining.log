@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  7 NOV 2019 23:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  8 NOV 2019 02:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -320,7 +320,6 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 3.
 LaTeX Info: Redefining \pageref on input line 3.
 LaTeX Info: Redefining \nameref on input line 3.
- (/Users/mac/Documents/github/CSCI-620/DataMining/Phase2/documentation/data mining.out) (/Users/mac/Documents/github/CSCI-620/DataMining/Phase2/documentation/data mining.out)
 \@outlinefile=\write3
 \openout3 = `"data mining.out"'.
 
@@ -336,32 +335,62 @@ LaTeX Font Info:    Try loading font information for U+lasy on input line 25.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 66.
- [1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
-
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 66.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 75.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 75.
  (/Users/mac/Documents/github/CSCI-620/DataMining/Phase2/documentation/data mining.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 66.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 66.
-Package rerunfilecheck Info: File `"data mining".out' has not changed.
-(rerunfilecheck)             Checksum: 4684F17C3EC938C202EA8C9D0A49F67D;351.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 66.
- ) 
-Here is how much of TeX's memory you used:
- 6201 strings out of 492649
- 88620 string characters out of 6129622
- 181608 words of memory out of 5000000
- 10002 multiletter control sequences out of 15000+600000
- 41684 words of font info for 55 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 39i,10n,29p,300b,330s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
-Output written on "/Users/mac/Documents/github/CSCI-620/DataMining/Phase2/documentation/data mining.pdf" (1 page, 49852 bytes).
-PDF statistics:
- 58 PDF objects out of 1000 (max. 8388607)
- 50 compressed objects within 1 object stream
- 9 named destinations out of 1000 (max. 500000)
- 49 words of extra memory for PDF output out of 10000 (max. 10000000)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 75.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 75.
 
+
+Package rerunfilecheck Warning: File `"data mining".out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `"data mining".out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 75.
+/Users/mac/Documents/github/CSCI-620/DataMining/Phase2/documentation/data mining.tex:75: You can't use `\end' in internal vertical mode.
+\enddocument ...es \z@ \Call@AtVeryVeryEnd \@@end 
+                                                  
+l.75 \end{document}
+                   
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+/Users/mac/Documents/github/CSCI-620/DataMining/Phase2/documentation/data mining.tex:75: Missing } inserted.
+<inserted text> 
+                }
+l.75 \end{document}
+                   
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+/Users/mac/Documents/github/CSCI-620/DataMining/Phase2/documentation/data mining.tex:75: Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.75 \end{document}
+                   
+Things are pretty mixed up, but I think the worst is over.
+
+)
+! Emergency stop.
+<*> ...ining/Phase2/documentation/data mining.tex"
+                                                  
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 6174 strings out of 492649
+ 88054 string characters out of 6129622
+ 181504 words of memory out of 5000000
+ 9995 multiletter control sequences out of 15000+600000
+ 36519 words of font info for 49 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 39i,10n,29p,300b,280s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!

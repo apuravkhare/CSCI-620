@@ -4,7 +4,7 @@ attach(Airb)
 library(sqldf)
 library(rpart)
 
-price_x=Airb$price>100
+price_x=Airb$price>50
 Airb=data.frame(Airb,price_x)
 
 TRain=sqldf("select longitude,neighbourhood_group,latitude,price,minimum_nights,
