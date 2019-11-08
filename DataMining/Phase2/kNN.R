@@ -23,17 +23,16 @@ Train_label=(sqldf("select price_x from Airb where price!=0 and
 TEst_label=sqldf("select price_x from Airb where price!=0 and
             price<1000 and id%10==1")
 
-#normalization needed later 
+#normalization 
 TRain_z=as.data.frame(scale(TRain))
 TEst_z=as.data.frame(scale(TEst))
-dim(TRain_z)
-dim(TEst_z)
-dim(Train_label)
+
 pred=knn(train=TRain,test=TEst,cl=Train_label$price_x,k=20)
 
-#accuracy
-#table(Actual = TEst_label$price, Predicted = pred)
+#result
+table(Actual = TEst_label$price, Predicted = pred)
 cm = as.matrix(table(Actual = TEst_label$price_x, Predicted = pred))
 accu=sum(diag(cm))/length(TEst_label$price)
+#accuracy
 message(accu)
 
