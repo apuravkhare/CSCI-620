@@ -92,7 +92,19 @@
 	\end{itemize}
 	
 	\subsection{Train and test split}
-	The final stage of the preprocessing is splitting the dataset into train and test in a 80-20 ratio. The dataset is shuffled to ensure that there is representation of the data distribution in both the parts. All models that will be built will use train and test accuracy as a metric to determine performance. These accuracy measures will also be used to identify potential problems such as overfitting and underfitting if they occur and in turn work towards a model that eliminates such issues.  
+	The final stage of the preprocessing is splitting the dataset into train and test in a 80-20 ratio. The dataset is shuffled to ensure that there is representation of the data distribution in both the parts. As seen in figures \ref{trainhist} and \ref{testhist}, the distribution for all categories of price group remains the same in both train and test. All models that will be built will use train and test accuracy as a metric to determine performance. These accuracy measures will also be used to identify potential problems such as overfitting and underfitting if they occur and in turn work towards a model that eliminates such issues.  
+	\begin{figure}[ht]
+		\includegraphics[width=8cm]{trainhist.png}
+		\caption{Distribution of price in Train}
+		\label{trainhist}
+		\centering
+	\end{figure}
+\begin{figure}[ht]
+	\includegraphics[width=8cm]{testhist.png}
+	\caption{Distribution of price in Test}
+	\label{testhist}
+	\centering
+\end{figure}
 	\section{Next steps} 
 	
 	
