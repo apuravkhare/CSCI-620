@@ -36,13 +36,33 @@
 	
 	\subsection{Targeted Knowledge}
 	This data mining task is based on a number of factors. One, a model capable of predicting the price of a new listing has real-world applications. A landlord looking to put up a listing for a new house in New York would be able to use this model to determine the expected range of prices for his house and price it accordingly to make the most profit. Two, the exploration of the dataset revealed that there are a number of attributes in the data that correlate to the price. This indicates that these attributes do help determine the price and validates our hypothesis that the price can be predicted reasonably well by a data mining algorithm. 
-	\subsection{Exploration and visualization} 
+
+	\subsection{Data Exploration and visualization}
 	Correlation plots were plotted on attributes against the price to see how they impact it. As a starting point, the attributes that have business meaning in the context of the data are used to plot the correlation plots. These attributes are: "neighbourhood", "neighbourhood\_group", "room\_type", "minimum\_nights", and "availability\_365".\\
 	Following are the notable observations:
 	\begin{enumerate}
 		\item The price of an Airbnb listing varies by the neighbourhood group that it is in. As observed from the correlation plot, the prices of the Airbnb listings in Brooklyn and Manhattan are relatively higher than those in Broknx, Queens, and Staten Island, with the listings in Staten Island being the least priced.
-		\item The room type of the Airbnb listing affects its price. There are three room types in the dataset: Entire home/apartment, Private room, and Shared room. The correlation plot clearly shows that Entire home/apartments are priced higher than private rooms, and Shared rooms are the least expensive of them all.
-		\item The neighbourhood impacts the price of the Airbnb listing as well. From the correlation plot, it is observed that listings in neighbourhoods like "Upper West Side", "Upper East Side", and "Easts Harlem" have a higher price compared to those in other areas.
+                Figures \ref{neighborhood_grp_corr} depicts these result.
+	\begin{figure}[ht]
+		\includegraphics[width=8cm]{neighborhood_grp_corr.png}
+		\centering
+		\caption{Correlation between neighbourhood group and price}
+		\label{neighborhood_grp_corr}
+	\end{figure}
+		\item The room type of the Airbnb listing affects its price. There are three room types in the dataset: Entire home/apartment, Private room, and Shared room. The correlation plot in Figure \ref{room_type_corr} clearly shows that Entire home/apartments are priced higher than private rooms, and Shared rooms are the least expensive of them all.
+	\begin{figure}[ht]
+		\includegraphics[width=8cm]{room_type_corr.png}
+		\centering
+		\caption{Correlation between room type and price}
+		\label{room_type_corr}
+	\end{figure}
+		\item The neighbourhood impacts the price of the Airbnb listing as well. From the correlation plot, it is observed that listings in neighbourhoods like "Upper West Side", "Upper East Side", and "Easts Harlem" have a higher price compared to those in other areas. Figure \ref{neighborhood_corr} shows the correlation plot.
+	\begin{figure}[ht]
+		\includegraphics[width=8cm]{neighborhood_corr.png}
+		\centering
+		\caption{Correlation between neighbourhood and price}
+		\label{neighborhood_corr}
+	\end{figure}
 		\item Some attributes which initially seemed to have business meaning did not have a strong correlation to the price. These attributes are "availability\_365", and "minimum\_nights".
 	\end{enumerate}
 	Figure \ref{corr} depicts the correlation of some of the attributes with the price, which will help choose the right features for the model. 
@@ -52,6 +72,30 @@
 		\caption{Correlation of price between other attributes}
 		\label{corr}
 	\end{figure}
+       \subsubsection{Outcomes of Data Exploration and Visualization}
+       Data exploration and visualization provided a clear understanding of the type of the data and its quality, which provides a clear idea of the preprocessing steps required to make the data more suitable for the data mining task. These results are briefly described below:
+       \begin{description}
+           \item[Type of the data:] The attributes that have an impact on the price are of varying types. For example, "neighbourhood" and "neighbourhood\_group" contain discrete values which can be categorized, and "room\_type" is a special categorical attribute where each category carries a meaning of "level" with it. In addition to these, the target label, "price", is itself a continuous attribute which can be categorized given the uneven spread of its values across the records. This can be observed in the histogram in Figures \ref{price_hist_1} and \ref{price_hist_2}
+	\begin{figure}[ht]
+		\includegraphics[width=8cm]{price_hist_1.png}
+		\centering
+		\caption{Distribution of the price}
+		\label{price_hist_1}
+	\end{figure}
+	\begin{figure}[ht]
+		\includegraphics[width=8cm]{price_hist_2.png}
+		\centering
+		\caption{Distribution of the price between the first and third quantiles}
+		\label{price_hist_2}
+	\end{figure}
+           \item[Quality of the data:] It was observed that the data contains certain records with data missing on attributes that might impact the data mining result, such as "room\_type", and "availability\_365". Also, a few records were found with 0 price. It was decided that these records would be considered spurious, and would be removed from the data fed to the classifier. The summary of price is described in Figure \ref{price_summary}.
+	\begin{figure}[ht]
+		\includegraphics[width=8cm]{price_summary.png}
+		\centering
+		\caption{Summary, and spurious values for price}
+		\label{price_summary}
+	\end{figure}
+       \end{description}
 	
 	\subsection{Categorizing Price}
 	Price the New York Airbnb Dataset is a continuous attribute with the following details - \newline
