@@ -203,7 +203,7 @@
 		\label{decision2}
 		\centering
 	\end{figure}
-	\item The next step in improving the performance of the decision tree is the cleaning the current data to remove any outliers or meaningless values.\\
+	\item The next step in improving the performance of the decision tree is the cleaning the current data to remove any outliers or meaningless values. These changes affect the attributes minimum nights, availability\_365 and host listing count\\
 	Further, on visualization of the attributes, we noticed that the east and west classes were not balanced as seen in figure \ref{longsplit} and hence we shifted the split towards the east class in an attempt to balance the classes\\
 	Figure \ref{decision3} depicts the decision tree built with these additions. The accuracy of the tree built after these changes is 54.01713\%
 	\begin{figure}[ht]
@@ -220,6 +220,8 @@
 	\end{figure}
 	\end{itemize}
 	\subsection{Refining the price split}
+	The next attempt in improving the model's performance was by changing the price split. So far, the price was discretized into four categories based on quantiles. In this stage, the real values are categorized into 3 classes based on percentile - 0, 0.33, 0.66. All the remaining attributes are left unchanged and the decision tree is built.\\
+	Figure \ref{decision4} depicts the decision tree built on the three way split. We note that this change positively impacts the accuracy and brings it up to 66.6821\%
 	\begin{figure}[ht]
 		\includegraphics[width=8cm]{decision4.PNG}
 		\caption{Decision tree with three way price split}
@@ -227,12 +229,29 @@
 		\centering
 	\end{figure}
 	\subsection{Adding more attributes from another dataset}
+	Airbnb is a publicly available dataset that contains even more features compared to the New York Airbnb dataset that we are currently using. To explore these features and see if they are good predictors for the price class, we merge the two datasets based on their unique name and id. \\
+	The new features obtained from this merge including the cleaning fee and the cancellation policy. Figure \ref{cleaning} and \ref{cancellation} show the distribution of these attributes. 
+	The cleaning fee is a real valued attribute and is hence categorized based on percentile into three classes.\\
+\begin{figure}[ht]
+	\includegraphics[width=8cm]{cancellation.PNG}
+	\caption{Cancellation Policy Distribution based on price}
+	\label{cancellation}
+	\centering
+\end{figure}
+	The decision tree for the three way price split is then built with these new attributes also added to the formula. Figure \ref{decision5} is the result of this change.\\
+	However, we notice that the additional features do not positively impact the accuracy. In fact, the accuracy after these changes is at 54.54545\%
 	\begin{figure}[ht]
 		\includegraphics[width=8cm]{decision5.PNG}
 		\caption{Decision tree with more attributes}
 		\label{decision5}
 		\centering
 	\end{figure}
-	\section{Conclusion}
-	
+	\section{Results}
+	Figure \ref{nyheatmap} depicts our predictions across the New York map. As we can see, most of the state is expensive with few regions that fall into the lower price categories which fits in with the ground truth.\\ 
+	\begin{figure}[ht]
+		\includegraphics[width=8cm]{heatmap.png}
+		\caption{Heat Map of the Price Class Predictions}
+		\label{nyheatmap}
+		\centering
+	\end{figure}	
 \end{document}
