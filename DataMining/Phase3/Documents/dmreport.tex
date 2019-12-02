@@ -246,12 +246,61 @@
 		\label{decision5}
 		\centering
 	\end{figure}
+
+	\section{A better division}
+	By checking the data roughly, we found that several certain prices like 99 and 199 have gathered
+	a lot of entities. At the same time, median of all the price is exactly 100. These circumstances
+	indicates that if we make classification based on these values like 100, it may not give us reasonable results, which
+	also can be shown in the following table.
+
+	\subsection{clustering}
+	In order to fix this problem, we decided to use clustering to the prices to find out a better division. 
+	\subsection{K-means}
+	First of all, we applied k-means clustering to this task, but it was proved to be a bad idea.
+	K-means clustering is based on distance between points, yet prices are continuous, where distance 
+	lost their meanings. In the end, K-means gave us 4 clusters as following
+	and it assumed the rest points as noise. This model is not a good model compared to next one.
+
+	\subsection{density based clustering}
+
+	As a matter of fact, what we really plan to find out is the prices' distribution, to be more specific, is
+	how price looks like in different ranges. So density-based clustering 
+	is abetter choice here.
+
+
+	To do density-based clustering, there are two key parameters, one is epsilon (“eps”) and the other is minimum points (“MinPts”). 
+	Eps defines the range of cluster and the higher the MinPts is, the more points are int the cluster. They both are hyper parameters,
+	and best values of them depends on conditions. For our task, I tried different values and the results are shown:
+	
+
+
+	From the table, we learned that range 91-105 have a highest density, which means that we'd better put them in same cluster. 
+	Despite that, we also get a few more clusters. So our 1st cluster is range 1-89.5, which proved to be correct as we can get 
+	around 80-85 accuracy in later tests. 
+
+	However, the 2nd cluster is quite confusing, there are 3 main clusters above 105 which are 111-135, 140-160 and 190-210. In fact,
+	every split has been tried and final results showed that they cannot get good accuracy at the same time.
+
+
+	In the end, we choose 140.5 as final second split point, and built our decision tree on it.
+
+	\subsection{Gaussian Distribution}
+	
+	By anlysing the distribution of price, I realized that it is actually quite like Gaussian distribution (or Normal distribution). 
+	
+	By the formula of Gaussian distribution, 
+
+
+	There is also a 3 u principal for Gaussian distribution, which is
+	this is quite different from our results, yet after removing the noise and extreme values, final result is (79,135). 
+
+
 	\section{Results}
-	Figure \ref{nyheatmap} depicts our predictions across the New York map. As we can see, most of the state is expensive with few regions that fall into the lower price categories which fits in with the ground truth.\\ 
-	\begin{figure}[ht]
-		\includegraphics[width=8cm]{heatmap.png}
-		\caption{Heat Map of the Price Class Predictions}
-		\label{nyheatmap}
-		\centering
-	\end{figure}	
+%	Figure \ref{nyheatmap} depicts our predictions across the New York map. As we can see, most of the state is expensive with few regions that fall into the lower price categories which fits in with the ground truth.\\ 
+	%\begin{figure}[ht]
+	%	\includegraphics[width=8cm]{heatmap.png}
+	%	\caption{Heat Map of the Price Class Predictions}
+%		\label{nyheatmap}
+%		\centering
+%	\end{figure}	
 \end{document}
