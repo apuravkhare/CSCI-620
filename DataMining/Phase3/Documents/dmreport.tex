@@ -271,22 +271,22 @@
 	Eps defines the range of cluster and the higher the MinPts is, the more points are int the cluster. They both are hyper parameters,
 	and best values of them depends on conditions. For our task, I tried different values and the results are shown:
 	
-	\begin{table}
-		\begin{tabular*}{12cm}{lll}
+
+		\begin{tabular}{c|c|c|c|c}
 		\hline
-		eps& MinPts& cluster 1&cluster 2&cluster 3 &cluster 4\\
+		eps& MinPts& cluster 1&cluster 2&cluster 3 \\
 		\hline
-		10& 1000& [10,270]&NA&NA&NA\\
-		10& 2000&[20,270] &NA&NA&NA\\
-		10& 5000&[35,250]&NA&NA&NA\\
+		10& 1000& [10,270]&NA&NA\\
+		10& 2000&[20,270] &NA&NA\\
+		10& 5000&[35,250]&NA&NA\\
 		5& 1000&[27,190]&[191,210]&[240,250]\\
 		5& 2000&[35,110]&[111,135]&[140,160]\\
-		5& 3000&[40,90]&[91,105]&NA&NA\\
-		5& 4000&[90,100]&NA&NA&NA\\
-		5& 5000&NA&NA&NA&NA\\
+		5& 3000&[40,90]&[91,105]&NA\\
+		5& 4000&[90,100]&NA&NA\\
+		5& 5000&NA&NA&NA\\
 		\hline
-	\end{tabular*}
-		\end{table}
+	\end{tabular}
+
 
 
 	From the table, we learned that range 90-100 have a highest density, which means that we'd better put them in same cluster. 
@@ -306,12 +306,11 @@
 	
 	By the formula of Gaussian distribution
 
-
 	{\displaystyle f(x)={\frac {1}{\sigma {\sqrt {2\pi }}}}\;e^{-{\frac {\left(x-\mu \right)^{2}}{2\sigma ^{2}}}}\!}{\displaystyle f(x)={\frac {1}{\sigma {\sqrt {2\pi }}}}\;e^{-{\frac {\left(x-\mu \right)^{2}}{2\sigma ^{2}}}}\!}
 
 	We can get \mu=mean(price)=135,\sigma=sd(price)=106. 
 
-	Then by \href{https://en.wikipedia.org/wiki/Normal_distribution}{3 mu principal},  for Gaussian distribution, we get 3 ranges [-\inf,\mu-\sigma],[\mu-\sigma,\mu+\sigma],[\mu+\sigma,\inf],
+	Then by \href{https://en.wikipedia.org/wiki/Normal_distribution}{3 \mu principal},  for Gaussian distribution, we get 3 ranges [-\inf,\mu-\sigma],[\mu-\sigma,\mu+\sigma],[\mu+\sigma,\inf],
 
     That is actually [0,39],[39,241],[241,1000]
 
@@ -334,17 +333,18 @@
 	\end{figure}
 	
 	In order to get a higher performance, we also applied an advanced algorithm to this task compared to decision tree, which is random forest.
-	And the results of random forest are also here:
-	\begin{table}
-		\begin{tabular*}{12cm}{lll}
+	And the results of random forest are also here(accuracy 73 percent):
+
+
+		\begin{tabular}{c|c|c|c}
 		\hline
-		  &1 & 2 & 3 \\
+		 0 &1 & 2 & 3 \\
 		\hline
 		1  & 2047 & 391 &59 \\
 		2  & 460 & 1420&715 \\
-		3   &68  & 511& 2042
+		3   &68  & 511& 2042\\
 		\hline
-		\end{tabular*}
-		\end{table}
+		\end{tabular}
+
 
 \end{document}
