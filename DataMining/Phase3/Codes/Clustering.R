@@ -12,12 +12,12 @@ Airbnb = Airbnb[Airbnb$price > 0,]
 Airbnb = Airbnb[Airbnb$price < 1000,]
 price=Airbnb$price
 price=price[price<400]
-library(cluster)#做聚类的包
-library(fpc)#有dbscan
+library(cluster)
+library(fpc)
 
-#kNNdistplot(Airbnb$price,k=5)
+kNNdistplot(Airbnb$price,k=100)
 hist(Airbnb$price)
 
-fit=dbscan(price,4,3000)
+fit=dbscan(price,10,1000)
 print(fit)
-range(price[fit$cluster[]==3])
+range(price[fit$cluster[]==1])
